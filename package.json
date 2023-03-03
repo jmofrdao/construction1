@@ -9,7 +9,10 @@
     "client:build": "react-scripts build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "seed:dev": "nodemon ./backend/db/seed.js",
-    "seed": "node ./backend/db/seed.js"
+    "seed": "node ./backend/db/seed.js",
+    "start:dev": "nodemon ./server.js",
+    "start": "node ./server.js",
+    "build": "NODE_ENV=production"
   },
   "keywords": [],
   "author": "",
