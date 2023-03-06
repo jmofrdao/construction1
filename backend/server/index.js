@@ -34,6 +34,9 @@ router.use(async (req,res,next) => {
 const usersRouter = require('./users')
 router.use('/users', usersRouter)
 
+const productRouter = require('./product')
+router.use('/product', productRouter)
+
 
 
 

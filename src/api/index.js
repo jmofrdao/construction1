@@ -21,3 +21,41 @@ export const loginUser = async (username,password) => {
         console.log(error)
     }
 }
+
+export const registerUser = async (username, password, email, secondPass) => {
+    try {
+        const response = await fetch (`${BASE_URL}/users/register`, {
+            method: "POST",
+            headers: {
+                "Content-Type": 'application/json',
+            },
+            body: JSON.stringify({
+                user: {
+                    username,
+                    password,
+                    email,
+                    secondPass
+                }
+            })
+        })
+        const result = await response.json()
+        console.log(result)
+        return result
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const getAllProducts = async () => {
+    try {
+        const response = await fetch(`${BASE_URL}/product`, {
+            headers: {
+                'Content-Type': 'applpication/json',
+            },
+        })
+        const result = await response.json()
+        return result
+    } catch (error) {
+        console.log(error)
+    }
+}

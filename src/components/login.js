@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { loginUser } from '../api'
+import { NavLink } from 'react-router-dom'
 
 
 const Login = () => {
@@ -11,13 +12,17 @@ const Login = () => {
         event.preventDefault()
 
         const result = await loginUser(username,password)
+        console.log(result)
         const token = result.token
         if (result.error) {
+            console.log(result, 'result')
+
             setError(result)
 
         } else if (token) {
             setError(null)
-            const username = result.error.username
+            console.log(result, 'result')
+            const username = result.user.username
             localStorage.setItem("username", username)
             localStorage.setItem("token", token)
 
@@ -35,11 +40,12 @@ const Login = () => {
                 </label>
                 <label>
                     Password:
-                    <input value={password} type='text' name='password' onChange={(event)=> {setPassword(event.target.value)}}/>
+                    <input value={password} type='password' name='password' onChange={(event)=> {setPassword(event.target.value)}}/>
                 </label>
                 <button type='submit'>Log In</button>
+                {error && error.message ? <h3>{error.message}</h3> : null}
             </form>
-
+            {/* <NavLink to='/register'>Click here to Register</NavLink> */}
         </div>
     )
 }
