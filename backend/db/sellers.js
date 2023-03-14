@@ -19,6 +19,37 @@ try {
 }
 }
 
+async function getSellerByUsername (username) {
+    try {
+        const {rows: [seller]} = await client.query(`
+        SELECT *
+        FROM sellers
+        WHERE username=$1
+        `, [username])
+
+        return seller
+    } catch (error) {
+        throw error
+    }
+}
+
+async function getSeller ({username,password}) {
+    try {
+        const seller = await getSellerByUsername(username)
+        const hashedPassword = seller.password
+        const isValid = bcrypt.compare(password, hashedPassword)
+
+        if (isValid) {
+            delete seller.password
+            return seller
+        }
+    } catch (error) {
+        throw error
+    }
+}
+
 module.exports = {
-    createSeller
+    createSeller,
+    getSeller, 
+    getSellerByUsername
 }
