@@ -39,7 +39,7 @@ router.post('/login', async (req,res,next)=> {
 })
 
 router.post('/register', async (req,res,next)=> {
-    const {username, password, secondPass, email} = req.body.seller
+    const {username, password, secondPass, email} = req.body.user
     if (!username || !password || !secondPass || !email) {
         next({
             name: 'MissingCredentialsError',

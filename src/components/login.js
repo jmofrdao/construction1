@@ -1,12 +1,14 @@
 import React, {useState} from 'react'
 import { loginUser } from '../api'
 import { NavLink } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 
 
 const Login = () => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState(null)
+    const navigate = useNavigate()
 
     const handleSubmit = async (event) => {
         event.preventDefault()
@@ -25,6 +27,7 @@ const Login = () => {
             const username = result.user.username
             localStorage.setItem("username", username)
             localStorage.setItem("token", token)
+            navigate('/')
 
         }
     }
@@ -45,7 +48,7 @@ const Login = () => {
                 <button type='submit'>Log In</button>
                 {error && error.message ? <h3>{error.message}</h3> : null}
             </form>
-            {/* <NavLink to='/register'>Click here to Register</NavLink> */}
+            <NavLink to='/register'>Click here to Register</NavLink>
         </div>
     )
 }

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {Routes, Route} from 'react-router-dom'
-import {Login, Product, Navbar} from './index'
+import {Login, Product, Navbar, Register} from './index'
 
 const App = () => {
     const [product, setProduct] = useState([])
@@ -16,14 +16,15 @@ const App = () => {
 
     return (
         <div>
-            {/* <div>
-                <Navbar/>
-            </div> */}
+            <div>
+                <Navbar setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/>
+            </div>
             <Routes>
                 <Route path='/login'
                 element={<Login setIsLoggedIn={setIsLoggedIn}/>}/>
                 <Route exact path='/'
                 element={<Product isLoggedIn={isLoggedIn} product={product} setProduct={setProduct}/>}/>
+                <Route path='register' element={<Register/>}/>
             </Routes>
            
         </div>

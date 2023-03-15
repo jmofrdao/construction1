@@ -9,7 +9,7 @@ const [error, setError] = useState(null)
 const [myResult, setMyresult] = useState(null)
 const [secondPass, setSecondpass] = useState('')
 const [email, setEmail] = useState('')
-// const navigate = useNavigate()
+const navigate = useNavigate()
 
 const handleSubmit = async (event) => {
     event.preventDefault()
@@ -22,7 +22,11 @@ const handleSubmit = async (event) => {
         } else if (token) {
             setError(null)
             setMyresult(result)
-            // navigate('/login')
+            setUsername('')
+        setPassword('')
+        setSecondpass('')
+        setEmail('')
+            navigate('/login')
         }
 }
     return (
