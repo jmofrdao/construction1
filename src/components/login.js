@@ -48,6 +48,7 @@ const Login = () => {
                 <button type='submit'>Log In</button>
                 {error && error.message ? <h3>{error.message}</h3> : null}
             </form>
+            <NavLink to='/sellerLogin'>Click here for Seller Login</NavLink><br/>
             <NavLink to='/register'>Click here to Register</NavLink>
         </div>
     )

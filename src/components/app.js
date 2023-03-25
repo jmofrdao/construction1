@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {Routes, Route} from 'react-router-dom'
-import {Login, Product, Navbar, Register} from './index'
+import {Login, Product, Navbar, Register, SellerLogin, SellerRegister, Logout} from './index'
 
 const App = () => {
     const [product, setProduct] = useState([])
@@ -25,6 +25,12 @@ const App = () => {
                 <Route exact path='/'
                 element={<Product isLoggedIn={isLoggedIn} product={product} setProduct={setProduct}/>}/>
                 <Route path='register' element={<Register/>}/>
+                <Route  path='sellerLogin'
+                element={<SellerLogin/>}/>
+                <Route path='sellerRegister'
+                element={<SellerRegister/>}/>
+                <Route path='logout'
+                element={<Logout/>}/>
             </Routes>
            
         </div>

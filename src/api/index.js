@@ -75,6 +75,7 @@ export const loginSeller = async (username, password) => {
             })
         })
         const result = await response.json()
+        console.log(result)
         return result
     } catch (error) {
         console.log(error)
@@ -99,6 +100,7 @@ export const registerSeller = async (username, password, secondPass, email, comp
             })
         })
         const result = await response.json()
+        console.log(result)
         console.log(result)
         return result
     } catch (error) {

@@ -1,12 +1,13 @@
 import { NavLink } from "react-router-dom"
 
-const Navbar = () => {
+const Navbar = ({setIsLoggedIn, isLoggedIn}) => {
 
     return (
       <div>
           <header>
-              {/* <NavLink to='/'>Home</NavLink> */}
-              <NavLink to='/login'>Login</NavLink>
+              <NavLink to='/'>Home</NavLink>
+              <NavLink to='/login'>Login/Register</NavLink>
+              <NavLink to='/logout'>Logout</NavLink>
           </header>
       </div>
     )

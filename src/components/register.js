@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
-import { useNavigate, Link } from 'react-router'
+import { useNavigate,} from 'react-router'
 import { registerUser } from '../api'
+import { NavLink } from 'react-router-dom'
 
 const Register = () => {
 const [username, setUsername] = useState('')
@@ -52,7 +53,7 @@ const handleSubmit = async (event) => {
                 {myResult && myResult.message ? <h3>{myResult.message}</h3> : null}
 
             </form>
-
+            <NavLink to='/sellerRegister'>Click here to Register as a Seller</NavLink>
         </div>
     )
 }

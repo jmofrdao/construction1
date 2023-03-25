@@ -9,6 +9,7 @@ const SellerLogin = () => {
     const handleSubmit = async (event) => {
         event.preventDefault()
         const result = await loginSeller(username, password)
+        console.log(result, 'result')
         const token = result.token
         if (result.error) {
             setError(result)
