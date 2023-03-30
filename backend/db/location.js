@@ -14,6 +14,21 @@ async function createLocation ({sellerId, address, state, city, zip, phone}) {
     }
 }
 
+async function getLocationsBySeller (username) {
+    try {
+        const {rows: locations} = await client.query(`
+        SELECT location.*, sellers.username as "sellername"
+        FROM location
+        JOIN sellers ON location."sellerId" = sellers.id
+        WHERE username = $1
+        `, [username])
+        return locations
+    } catch (error) {
+        throw error
+    }
+}
+
 module.exports = {
-    createLocation
+    createLocation,
+    getLocationsBySeller
 }
