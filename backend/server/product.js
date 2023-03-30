@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {getAllProducts, createProduct, getProductById, destroyProduct} = require('../db/product')
+const {getAllProducts, createProduct, getProductById, destroyProduct, updateProduct} = require('../db/product')
 const {requireSeller} = require('./utils')
 
 router.get('/', async (req,res,next)=> {
@@ -46,6 +46,34 @@ router.delete('/:productId', requireSeller, async (req,res,next)=> {
     } catch ({name, message}) {
         next({name, message})
     }
+})
+
+router.patch('/:productId', requireSeller, async (req, res ,next)=> {
+    const {productId} = req.params
+    const {sellerId, locationId, name, price, inventory, description} = req.body
+    const originalProductId = await getProductById(productId)
+    try {
+        if (!originalProductId) {
+            next({
+                name: 'NoProduct',
+                message: `Product ${productId} not found`
+            })
+        } else {
+            const updatedProduct = await updateProduct({
+                productId, 
+                sellerId: req.seller.id, name, price, inventory, description
+            })
+            res.send(updatedProduct)
+        }
+    } catch (error) {
+        next(error)
+    }
+})
+
+router.get('/:productId', async (req,res,next)=> {
+    const {productId} = req.params
+    const getProduct = await getProductById(productId)
+    res.send(getProduct)
 })
 
 module.exports = router

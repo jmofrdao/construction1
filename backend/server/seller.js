@@ -3,10 +3,10 @@ const router = express.Router()
 const jwt = require('jsonwebtoken')
 const {JWT_SECRET} = process.env
 const {getSeller, getSellerByUsername, createSeller} = require('../db/sellers')
-
+const {getLocationsBySeller} = require('../db/location')
 router.post('/login', async (req,res,next)=> {
     const {username,password} = req.body.seller
-
+console.log(username, 'username')
     if (!username || !password) {
         next({
             name: 'MissingCredentialsError',
@@ -15,6 +15,7 @@ router.post('/login', async (req,res,next)=> {
     }
     try {
         const seller = await getSeller({username, password})
+        console.log(seller, 'seller')
         if (seller) {
             const token = jwt.sign({
                 id: seller.id,
@@ -80,6 +81,23 @@ router.post('/register', async (req, res, next)=> {
         }
     } catch (error) {
         next(error)
+    }
+})
+
+router.get('/:username/locations', async (req,res,next) => {
+    const {username} = req.params
+    try {
+        const location = await getLocationsBySeller(username)
+        if (username) {
+            res.send(location)
+        } else {
+            next({
+                name:'ErrorLocation',
+                message: 'Error Getting Locations'
+            })
+        }
+    } catch ({name, message}) {
+        next({name, message})
     }
 })
 

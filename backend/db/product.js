@@ -62,9 +62,36 @@ async function destroyProduct (id) {
         throw error;
       }}
 
+      async function updateProduct ({productId, ...fields}) {
+        const setString = Object.keys(fields)
+        .map((key, index) => `"${key}"=$${index + 1}`)
+        .join(", ");
+    
+        if (setString.length === 0) {
+          return;
+        }
+        try {
+          const {
+            rows: [product],
+          } = await client.query(
+            `
+        UPDATE product
+        SET ${setString}
+        WHERE id=${productId}
+        RETURNING *;
+        `,
+            Object.values(fields)
+          );
+          return product;
+      } catch (error) {
+        throw error;
+      }
+    }
+
 module.exports = {
     createProduct,
     getAllProducts,
     getProductById,
-    destroyProduct
+    destroyProduct,
+    updateProduct
 }

@@ -107,3 +107,25 @@ export const registerSeller = async (username, password, secondPass, email, comp
         console.log(error)
     }
 }
+
+export const deleteProduct = async (token, prodctId) => {
+    const response = await fetch(`${BASE_URL}/product/${prodctId}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+        }
+    })
+    const result = await response.json()
+    return result
+}
+
+export async function getLocationsBySeller (username) {
+    const response = await fetch(`${BASE_URL}/seller/${username}/locations`, {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+    const result = await response.json()
+    return result
+}
