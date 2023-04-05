@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken')
 const {JWT_SECRET} = process.env
 const {getSeller, getSellerByUsername, createSeller} = require('../db/sellers')
 const {getLocationsBySeller} = require('../db/location')
+const {requireSeller} = require('./utils')
 router.post('/login', async (req,res,next)=> {
     const {username,password} = req.body.seller
 console.log(username, 'username')
@@ -100,5 +101,14 @@ router.get('/:username/locations', async (req,res,next) => {
         next({name, message})
     }
 })
+
+router.get("/me", requireSeller, async (req, res, next) => {
+    
+    try {
+      res.send(req.seller);
+    } catch (error) {
+      next(error);
+    }
+  });
 
 module.exports = router

@@ -11,10 +11,11 @@ function requireUser(req, res, next) {
   }
 
   function requireSeller(req, res, next) {
-    if (!req.merchant) {
+    console.log(req.seller)
+    if (!req.seller) {
       res.status(401);
       next({
-        name: "MissingMerchantError",
+        name: "MissingSellerError",
         message: "You must be logged in to perform this action"
       });
     }

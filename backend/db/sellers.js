@@ -48,8 +48,28 @@ async function getSeller ({username,password}) {
     }
 }
 
+async function getSellerById(sellerId) {
+    try {
+      const {
+        rows: [seller],
+      } = await client.query(`
+      SELECT id, username 
+      FROM sellers
+      WHERE id =${sellerId};
+      `);
+      if (!seller) {
+        return null;
+      }
+  
+      return seller;
+    } catch (error) {
+      throw error;
+    }
+  }
+
 module.exports = {
     createSeller,
     getSeller, 
-    getSellerByUsername
+    getSellerByUsername,
+    getSellerById
 }

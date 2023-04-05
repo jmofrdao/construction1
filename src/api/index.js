@@ -129,3 +129,13 @@ export async function getLocationsBySeller (username) {
     const result = await response.json()
     return result
 }
+export async function getSeller(token) {
+    const response = await fetch(`${BASE_URL}/seller/me`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const result = await response.json();
+      return result;
+}

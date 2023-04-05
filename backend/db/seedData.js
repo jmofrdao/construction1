@@ -115,8 +115,8 @@ async function createInitialLocation () {
     try {
         const locationToCreate = [
             {sellerId: 1, address: "2732 w reno ave", state: 'Oklahoma', city: 'Oklahoma City', zip: 73170, phone: '405-235-4563'},
-            {sellerId: 1, address: '5640 Huettner Dr', state: 'Oklahoma', city: 'Norman', zip: 73069, phone: '405-360-9111'},
-            {sellerId: 1, address: '14942 Bristol Park Blvd', state: 'Oklahoma', city: 'Edmond', zip: 73013, phone: '405-752-9937'},
+            {sellerId: 2, address: '5640 Huettner Dr', state: 'Oklahoma', city: 'Norman', zip: 73069, phone: '405-360-9111'},
+            {sellerId: 3, address: '14942 Bristol Park Blvd', state: 'Oklahoma', city: 'Edmond', zip: 73013, phone: '405-752-9937'},
             {sellerId: 1, address: '2219 W Vancouver St', state: 'Oklahoma', city: 'Broken Arrow', zip: 74012, phone: '918-258-7000'},
 
         ];

@@ -8,6 +8,7 @@ const Navbar = ({setIsLoggedIn, isLoggedIn}) => {
               <NavLink to='/'>Home</NavLink>
               <NavLink to='/login'>Login/Register</NavLink>
               <NavLink to='/logout'>Logout</NavLink>
+              <NavLink to='/locations'>Locations</NavLink>
           </header>
       </div>
     )
