@@ -69,5 +69,8 @@ router.use('/product', productRouter)
 const sellerRouter = require('./seller')
 router.use('/seller', sellerRouter)
 
+const locationRouter = require('./locations')
+router.use('/locations', locationRouter)
+
 
 module.exports = router

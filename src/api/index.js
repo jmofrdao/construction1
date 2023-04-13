@@ -139,3 +139,7 @@ export async function getSeller(token) {
       const result = await response.json();
       return result;
 }
+
+export async function createLocation () {
+    
+}
