@@ -45,7 +45,7 @@ async function createTables () {
             address TEXT NOT NULL,
             state sellerState NOT NULL,
             city TEXT NOT NULL,
-            zip INTEGER NOT NULL,
+            zip TEXT NOT NULL,
             phone TEXT NOT NULL
 
         );

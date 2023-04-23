@@ -1,8 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import { getLocationsBySeller, getSeller } from '../api'
+import CreateLocation from './createLocation'
+import { createLocation } from './index'
 
-const Locations = () => {
+const Locations = (product, setProduct) => {
 const [myLocations, setMyLocations] = useState([])
+const [isShown, setIsShown] = useState(false)
 
 async function fetchMyLocations() {
     const token = localStorage.getItem('token')
@@ -19,6 +22,10 @@ useEffect(()=> {
     fetchMyLocations()
 }, [])
 
+async function buttonClick() {
+    setIsShown((current)=> !current)
+}
+
 const locationMap = myLocations.map((location, index)=> {
     return (
         <div key={`Location ${index}`}>
@@ -33,6 +40,10 @@ const locationMap = myLocations.map((location, index)=> {
     return (
         <div>
             {locationMap}
+            <button onClick={buttonClick}>Add a Location</button>
+            {isShown && (<CreateLocation myLocations={myLocations} setMyLocations={setMyLocations} setIsShown={setIsShown}/>)}
+            
+            
         </div>
     )
 }

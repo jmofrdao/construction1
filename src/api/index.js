@@ -140,6 +140,21 @@ export async function getSeller(token) {
       return result;
 }
 
-export async function createLocation () {
-    
+export async function createLocation (token, address, state, city, zip, phone) {
+    const response = await fetch(`${BASE_URL}/locations`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+            address, 
+            state,
+            city,
+            zip,
+            phone
+        })
+    })
+    const result = await response.json()
+    return result
 }
