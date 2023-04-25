@@ -23,7 +23,7 @@ const CreateLocation = ({myLocations, setMyLocations, setIsShown}) => {
         }
     }
     console.log(myLocations, 'locations')
-// useEffect(()=> {}, [myLocations])
+useEffect(()=> {}, [myLocations])
 
 
 

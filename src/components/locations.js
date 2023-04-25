@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { getLocationsBySeller, getSeller } from '../api'
-import CreateLocation from './createLocation'
-import { createLocation } from './index'
+import {CreateLocation, RemoveLocation} from './index'
 
 const Locations = (product, setProduct) => {
 const [myLocations, setMyLocations] = useState([])
@@ -34,6 +33,7 @@ const locationMap = myLocations.map((location, index)=> {
             <h3>City: {location.city}</h3>
             <h4>Zip: {location.zip}</h4>
             <h4>Phone: {location.phone}</h4>
+            <RemoveLocation locationId={location.id} myLocations={myLocations} setMyLocations={setMyLocations}/>
         </div>
     )
 })

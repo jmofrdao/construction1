@@ -88,10 +88,25 @@ async function destroyProduct (id) {
       }
     }
 
+    async function getProductByLocation(locationId) {
+      try {
+        const {rows: product} = await client.query(`
+        SELECT product.*, location.id as "locationId"
+        FROM product
+        JOIN location ON product."locationId" = location.id
+        WHERE id=${locationId}
+        `)
+        return product
+      } catch (error) {
+        throw error
+      }
+    }
+
 module.exports = {
     createProduct,
     getAllProducts,
     getProductById,
     destroyProduct,
-    updateProduct
+    updateProduct,
+    getProductByLocation
 }

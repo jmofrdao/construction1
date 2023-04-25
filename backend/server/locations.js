@@ -1,7 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const {requireSeller} = require('./utils')
-const {createLocation} = require('../db/location')
+const {createLocation, getLocationById, destroyLocation} = require('../db/location')
+const {getProductByLocation} = require('../db/product')
 
 router.post('/', requireSeller, async (req, res, next)=> {
     const {sellerId, address, state, city, zip, phone} = req.body
@@ -23,4 +24,39 @@ router.post('/', requireSeller, async (req, res, next)=> {
     }
 })
 
+router.delete('/:locationId', requireSeller, async (req,res,next)=> {
+const {locationId} = req.params
+try {
+const location = await getLocationById(locationId)
+if (location && location.sellerId === req.seller.id) {
+    await destroyLocation(locationId)
+    res.send(location)
+} else {
+    res.status(403);
+    next({
+        name: 'MissingSellerError',
+        message: `Seller ${req.seller.username} is not allowed to delete this location`
+    })
+}
+} catch ({name, message}) {
+    next({name, message})
+}
+})
+
+router.get('/:locationId/product', async (req,res,next) => {
+    const {locationId} = req.params
+    try {
+        const product = await getProductByLocation(locationId)
+        if (locationId) {
+            res.send(product)
+        } else {
+            next({
+                name:'ErrorProduct',
+                message: 'Error Getting Product'
+            })
+        }
+    } catch ({name, message}) {
+        next({name, message})
+    }
+})
 module.exports = router

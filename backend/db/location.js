@@ -28,7 +28,38 @@ async function getLocationsBySeller (username) {
     }
 }
 
+async function destroyLocation (id) {
+    try {
+        const {rows: [location]} = await client.query(`
+        DELETE FROM location
+        WHERE id = $1
+        RETURNING *;
+        `, [id])
+    return location
+    } catch (error) {
+        throw error
+    }
+}
+
+async function getLocationById(locationId) {
+try {
+    const {rows: [location]} = await client.query(`
+    SELECT *
+    FROM location
+    WHERE id=${locationId}
+    `)
+    if (!location) {
+        return null
+    }
+    return location
+} catch (error) {
+    throw error
+}
+}
+
 module.exports = {
     createLocation,
-    getLocationsBySeller
+    getLocationsBySeller,
+    destroyLocation,
+    getLocationById
 }
