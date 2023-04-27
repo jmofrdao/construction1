@@ -19,7 +19,8 @@ const Product = ({product, setProduct, isLoggedIn}) => {
                 <h1>Name: {prod.name}</h1>
                 <h3>Price: ${prod.price}</h3>
                 <h3>Available: {prod.inventory}</h3>
-                <h4>Description: {prod.description}</h4>
+                {prod.description ? <h4>Description: {prod.description}</h4> : null}
+                
             </div>
         )
     })

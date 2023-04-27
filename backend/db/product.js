@@ -91,10 +91,10 @@ async function destroyProduct (id) {
     async function getProductByLocation(locationId) {
       try {
         const {rows: product} = await client.query(`
-        SELECT product.*, location.id as "locationId"
+        SELECT product.*, location.*
         FROM product
         JOIN location ON product."locationId" = location.id
-        WHERE id=${locationId}
+        WHERE location.id=${locationId}
         `)
         return product
       } catch (error) {
