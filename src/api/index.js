@@ -180,3 +180,21 @@ export async function removeLocation (token, locationId) {
     const result = await response.json()
     return result 
 }
+
+export async function updateProduct (token, productId, name, price, inventory, description){
+    const response = await fetch(`${BASE_URL}/product/${productId}`, {
+        method:"PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+            name,
+            price,
+            inventory,
+            description
+        })
+    });
+    const result = await response.json()
+    return result
+}

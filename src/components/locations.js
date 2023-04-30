@@ -7,6 +7,7 @@ const Locations = (product, setProduct) => {
 const [myLocations, setMyLocations] = useState([])
 const [isShown, setIsShown] = useState(false)
 
+
 async function fetchMyLocations() {
     const token = localStorage.getItem('token')
     const username = localStorage.getItem('username')
@@ -25,6 +26,8 @@ useEffect(()=> {
 async function buttonClick() {
     setIsShown((current)=> !current)
 }
+
+
 
 const locationMap = myLocations.map((location, index)=> {
     return (

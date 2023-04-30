@@ -58,7 +58,13 @@ router.patch('/:productId', requireSeller, async (req, res ,next)=> {
                 name: 'NoProduct',
                 message: `Product ${productId} not found`
             })
-        } else {
+        } else if (!name || !price || !inventory) {
+            next({
+                name: 'ProvideAllInfo',
+                message: 'Please provide information for Name, Price, and Inventory'
+            })
+        }
+        else {
             const updatedProduct = await updateProduct({
                 productId, 
                 sellerId: req.seller.id, name, price, inventory, description

@@ -109,7 +109,7 @@ useEffect(()=> {}, [myLocations])
                     </label>
                     <label>
                         <div>Phone Number:</div>
-                        <input type='tel' placeholder='Phone Number' value={phone} onChange={(event)=> setPhone(event.target.value)}/>
+                        <input type='tel' placeholder='Phone Number' value={phone} onChange={(event)=> {setPhone(event.target.value)}}/>
                     </label>
                     <button type='submit'>Add Location</button>
             </form>
