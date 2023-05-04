@@ -117,6 +117,7 @@ export const deleteProduct = async (token, prodctId) => {
         }
     })
     const result = await response.json()
+    console.log(result)
     return result
 }
 
@@ -181,7 +182,7 @@ export async function removeLocation (token, locationId) {
     return result 
 }
 
-export async function updateProduct (token, productId, name, price, inventory, description){
+export async function updateProduct (token, productId, name, price, inventory, description, locationId){
     const response = await fetch(`${BASE_URL}/product/${productId}`, {
         method:"PATCH",
         headers: {
@@ -192,8 +193,28 @@ export async function updateProduct (token, productId, name, price, inventory, d
             name,
             price,
             inventory,
-            description
+            description,
+            locationId
         })
+    });
+    const result = await response.json()
+    return result
+}
+
+export async function addProduct (token, locationId, name, price, inventory, description) {
+    const response = await fetch(`${BASE_URL}/product`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+            locationId,
+            name,
+            price,
+            inventory,
+            description
+        }),
     });
     const result = await response.json()
     return result

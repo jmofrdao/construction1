@@ -37,10 +37,16 @@ const locationMap = myLocations.map((location, index)=> {
             <h3>City: {location.city}</h3>
             <h4>Zip: {location.zip}</h4>
             <h4>Phone: {location.phone}</h4>
+            <div>
             <NavLink to='/productByLocation'
             state={{locationId: location.id}}>
                 View Products for {location.address}
             </NavLink>
+            </div>
+            <div>
+            <NavLink to='/createProduct'
+            state={{locationId: location.id}}>Add Products for {location.address}</NavLink>
+            </div>
             <RemoveLocation locationId={location.id} myLocations={myLocations} setMyLocations={setMyLocations}/>
         </div>
     )

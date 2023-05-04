@@ -1,7 +1,7 @@
 import REACT, {useState, useEffect} from 'react'
 import { getSeller, getProductsByLocation } from '../api'
 import { useLocation } from 'react-router'
-import {UpdateProduct} from './index'
+import {UpdateProduct, DeleteProduct} from './index'
 const ProductByLocation = () => {
     const [productLocation, setProductLocation] = useState([])
     const location = useLocation()
@@ -29,6 +29,8 @@ const ProductByLocation = () => {
         setIsShown2((current)=> !current)
         }
 
+        console.log(productLocation, 'prod by location')
+
     const theProductLocationMap = productLocation.map((element, index)=> {
         return (
             <div key={`Product By Location ${index}`}>
@@ -36,8 +38,9 @@ const ProductByLocation = () => {
                 <h3>Price: ${element.price}</h3>
                 <h3>Available: {element.inventory}</h3>
                 {element.description ? <h4>Description: {element.description}</h4> : null }
-                {!isShown2 ? <button onClick={buttonClick2}>Update Product</button> : <button onClick={buttonClick2}>Close Form</button>}
+                {!isShown2 ? <button onClick={buttonClick2}>Edit Product</button> : <button onClick={buttonClick2}>Close Form</button>}
                 {isShown2 && (<UpdateProduct productId={element.id} productLocation={productLocation} setProductLocation={setProductLocation} locationId={locationId} productName={element.name}/>)}
+                <DeleteProduct productId={element.id} productLocation={productLocation} setProductLocation={setProductLocation} locationId={locationId}/>
 
             </div>
         )

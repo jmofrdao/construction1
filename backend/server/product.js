@@ -33,6 +33,9 @@ router.delete('/:productId', requireSeller, async (req,res,next)=> {
     const {productId} = req.params
     try {
         const product = await getProductById(productId)
+        console.log(product, 'prod')
+        console.log(req.seller, 'id')
+        console.log(product.sellerId, 'sell')
         if (product && product.sellerId === req.seller.id) {
             await destroyProduct(productId)
             res.send(product)
@@ -67,8 +70,9 @@ router.patch('/:productId', requireSeller, async (req, res ,next)=> {
         else {
             const updatedProduct = await updateProduct({
                 productId, 
-                sellerId: req.seller.id, name, price, inventory, description
+                sellerId: req.seller.id, name, price, inventory, description, locationId
             })
+            console.log(updateProduct, 'update')
             res.send(updatedProduct)
         }
     } catch (error) {

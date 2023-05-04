@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {Routes, Route} from 'react-router-dom'
-import {Login, Product, Navbar, Register, SellerLogin, SellerRegister, Logout, Locations, CreateLocation, ProductByLocation} from './index'
+import {Login, Product, Navbar, Register, SellerLogin, SellerRegister, Logout, Locations, CreateLocation, ProductByLocation, CreateProduct} from './index'
 
 const App = () => {
     const [product, setProduct] = useState([])
@@ -37,6 +37,8 @@ const App = () => {
                 element={<CreateLocation product={product} setProduct={setProduct}/>}/>
                 <Route path='productByLocation'
                 element={<ProductByLocation/>}/>
+                <Route path='/createProduct'
+                element={<CreateProduct product={product} setProduct={setProduct}/>}/>
 
             </Routes>
            

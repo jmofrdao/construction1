@@ -1,59 +1,43 @@
-import React, {useState, useEffect} from 'react'
-import { updateProduct, getProductsByLocation } from '../api'
+import React, {useState} from 'react'
+import { addProduct } from '../api'
+import { useLocation } from 'react-router'
 
-const UpdateProduct = ({productLocation, setProductLocation, productId, locationId, productName}) => {
+const CreateProduct = ({product, setProduct}) => {
 const [name, setName] = useState('')
 const [price, setPrice] = useState(0)
 const [inventory, setInventory] = useState(0)
 const [description, setDescription] = useState('')
 const [error, setError] = useState(null)
 const [myResult, setMyResult] = useState(null)
+const location = useLocation()
+const {locationId} = location.state
 
-    
 async function handleSubmit(event) {
     event.preventDefault()
     const token = localStorage.getItem('token')
-    const newProduct = await updateProduct(
-        token, 
-        productId,
-        name,
-        price,
-        inventory,
-        description,
-        locationId
-    )
-    if(newProduct.error) {
+    const newProduct = await addProduct(token, locationId, name, price, inventory, description)
+    if (newProduct.error) {
         setError(newProduct)
         setMyResult(null)
     } else {
         setError(null)
         setMyResult(newProduct)
-        console.log(newProduct, 'new product')
-        newProduct;
-        const newUpdatedProducts = await getProductsByLocation(locationId)
-        console.log(newUpdatedProducts, 'new updated products')
-        setProductLocation(newUpdatedProducts)
-        setName('')
-        setPrice(0)
-        setInventory(0)
-        setDescription('')
+        await setProduct([newProduct, ...product])
     }
 }
-useEffect(()=> {}, [productLocation])
-
-
 
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <h1>Updating {productName}</h1>
-                {error && error.message ? (
+            <h1>Add a Product</h1>
+            {error && error.message ? (
                     <h2>{error.message}</h2>
                 ) : null }
-                {myResult && myResult.message ? <h2>Sucessfully updated {productName}</h2> : null}
+                {myResult  ? <h2>Sucessfully added {name}!</h2> : null}
+                <label></label>
+            <form onSubmit={handleSubmit}>
                 <label>
-                 <div>Name:</div>   
+                <div>Name:</div>   
                  <input value={name} type='text' placeholder='Name' onChange={(event)=> {setName(event.target.value)}}/>
                 </label>
                 <label>
@@ -74,4 +58,4 @@ useEffect(()=> {}, [productLocation])
     )
 }
 
-export default UpdateProduct
+export default CreateProduct
