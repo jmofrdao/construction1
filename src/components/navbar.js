@@ -1,14 +1,32 @@
 import { NavLink } from "react-router-dom"
 
-const Navbar = ({setIsLoggedIn, isLoggedIn}) => {
+const Navbar = ({setIsLoggedIn, isLoggedIn, isSeller, setIsSeller}) => {
 
     return (
       <div>
           <header>
+              <div>
               <NavLink to='/'>Home</NavLink>
-              <NavLink to='/login'>Login/Register</NavLink>
-              <NavLink to='/logout'>Logout</NavLink>
-              <NavLink to='/locations'>Locations</NavLink>
+              </div>
+              <div>
+                  {isSeller && isLoggedIn ? (
+                      <div>
+                       <NavLink to='/locations'>Locations</NavLink>
+                       <NavLink to='/logout'>Logout</NavLink>
+                       </div>
+                  ) : !isSeller && isLoggedIn ? (
+                      <div>
+                          <NavLink to='/logout'>Logout</NavLink>
+                      </div>
+                  ) : (
+                      <div>
+                          <NavLink to='/login'>Login/Register</NavLink>
+                      </div>
+                  )}
+              </div>
+              
+              
+             
           </header>
       </div>
     )

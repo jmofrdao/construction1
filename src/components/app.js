@@ -5,11 +5,15 @@ import {Login, Product, Navbar, Register, SellerLogin, SellerRegister, Logout, L
 const App = () => {
     const [product, setProduct] = useState([])
     const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const [isSeller, setIsSeller] = useState(false)
 
     useEffect(()=> {
         const token = localStorage.getItem("token")
         if (token) {
             setIsLoggedIn(true)
+        }
+        if (localStorage.getItem('seller')) {
+            setIsSeller(true)
         }
     }, [])
   
@@ -17,30 +21,47 @@ const App = () => {
     return (
         <div>
             <div>
-                <Navbar setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/>
+                <Navbar setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} setIsSeller={setIsSeller} isSeller={isSeller}/>
             </div>
-            <Routes>
-                <Route path='/login'
-                element={<Login setIsLoggedIn={setIsLoggedIn}/>}/>
-                <Route exact path='/'
+            {isLoggedIn && isSeller ? (
+                <Routes>
+            <Route exact path='/'
                 element={<Product isLoggedIn={isLoggedIn} product={product} setProduct={setProduct}/>}/>
-                <Route path='register' element={<Register/>}/>
-                <Route  path='sellerLogin'
-                element={<SellerLogin/>}/>
-                <Route path='sellerRegister'
-                element={<SellerRegister/>}/>
-                <Route path='logout'
-                element={<Logout/>}/>
                 <Route path='locations'
-                element={<Locations product={product} setProduct={setProduct}/>}/>
-                <Route path='createLocation'
-                element={<CreateLocation product={product} setProduct={setProduct}/>}/>
-                <Route path='productByLocation'
-                element={<ProductByLocation/>}/>
+                element={<Locations product={product} setProduct={setProduct}/>}/> 
                 <Route path='/createProduct'
                 element={<CreateProduct product={product} setProduct={setProduct}/>}/>
+                <Route path='createLocation'
+                element={<CreateLocation product={product} setProduct={setProduct}/>}/>
+                  <Route path='productByLocation'
+                element={<ProductByLocation/>}/>
+                <Route path='logout'
+                element={<Logout setIsLoggedIn={setIsLoggedIn} setIsSeller={setIsSeller}/>}/>
 
-            </Routes>
+
+                </Routes>
+                ) : !isSeller && isLoggedIn ? (
+                    <Routes>
+                        <Route path='logout'
+                element={<Logout setIsLoggedIn={setIsLoggedIn} setIsSeller={setIsSeller}/>}/>
+                    <Route exact path='/'
+                element={<Product isLoggedIn={isLoggedIn} product={product} setProduct={setProduct}/>}/>
+                    </Routes>
+                ) : (
+                    <Routes>
+                        <Route path='/login'
+                element={<Login setIsLoggedIn={setIsLoggedIn}/>}/>
+                <Route path='register' element={<Register/>}/>
+                <Route  path='sellerLogin'
+                element={<SellerLogin setIsLoggedIn={setIsLoggedIn} setIsSeller={setIsSeller}/>}/>
+                <Route path='sellerRegister'
+                element={<SellerRegister/>}/>
+                <Route exact path='/'
+                element={<Product isLoggedIn={isLoggedIn} product={product} setProduct={setProduct}/>}/>
+                
+                    </Routes>
+                )}
+                
            
         </div>
     )

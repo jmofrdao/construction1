@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 import { useNavigate } from 'react-router'
 
 
-const Login = () => {
+const Login = ({setIsLoggedIn}) => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState(null)
@@ -27,6 +27,7 @@ const Login = () => {
             const username = result.user.username
             localStorage.setItem("username", username)
             localStorage.setItem("token", token)
+            setIsLoggedIn(true)
             navigate('/')
 
         }

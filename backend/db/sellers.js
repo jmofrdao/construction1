@@ -53,7 +53,7 @@ async function getSellerById(sellerId) {
       const {
         rows: [seller],
       } = await client.query(`
-      SELECT id, username 
+      SELECT id, username, company
       FROM sellers
       WHERE id =${sellerId};
       `);

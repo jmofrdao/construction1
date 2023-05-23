@@ -1,10 +1,12 @@
 import React, {useState} from 'react'
 import { loginSeller } from '../api'
+import { useNavigate } from 'react-router-dom'
 
-const SellerLogin = () => {
+const SellerLogin = ({setIsLoggedIn, setIsSeller}) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState(null)
+    const navigate = useNavigate()
 
     const handleSubmit = async (event) => {
         event.preventDefault()
@@ -16,8 +18,13 @@ const SellerLogin = () => {
         } else if (result.token) {
             setError(null)
             const username = result.seller.username 
+            const seller = result.seller.company 
             localStorage.setItem('username', username)
             localStorage.setItem('token', token )
+            localStorage.setItem('seller', seller)
+            setIsSeller(true)
+            setIsLoggedIn(true)
+            navigate('/locations')
         }
     }
     return (

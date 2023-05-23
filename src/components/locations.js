@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom'
 const Locations = (product, setProduct) => {
 const [myLocations, setMyLocations] = useState([])
 const [isShown, setIsShown] = useState(false)
+const sellerName = localStorage.getItem('seller')
 
 
 async function fetchMyLocations() {
@@ -53,6 +54,7 @@ const locationMap = myLocations.map((location, index)=> {
 })
     return (
         <div>
+           <h1>Hello {sellerName}!</h1>
             {locationMap}
             <button onClick={buttonClick}>Add a Location</button>
             {isShown && (<CreateLocation myLocations={myLocations} setMyLocations={setMyLocations} setIsShown={setIsShown}/>)}
