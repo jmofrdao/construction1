@@ -219,3 +219,18 @@ export async function addProduct (token, locationId, name, price, inventory, des
     const result = await response.json()
     return result
 }
+
+export const getProductsById = async (productId) => {
+    try {
+      const response = await fetch(`${BASE_URL}/product/${productId}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  };

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { NavLink } from "react-router-dom"
 import { getAllProducts } from "../api"
-import {Search, LocationForProduct} from './index'
+import {Search, LocationForProduct, ProductDetails} from './index'
 
 const Product = ({product, setProduct, isLoggedIn}) => {
     const [productFilter, setProductFilter] = useState([])
@@ -26,6 +26,9 @@ const Product = ({product, setProduct, isLoggedIn}) => {
                     <h3>Available: {prod.inventory}</h3>
                     {prod.description ? <h4>Description: {prod.description}</h4> : null}
                     <LocationForProduct locationId={prod.locationId}/>
+                    <NavLink to='/productDetails'
+                    state={{productId: prod.id}}
+                    >Details</NavLink>
                     
                 </div>
             )
@@ -39,6 +42,9 @@ const Product = ({product, setProduct, isLoggedIn}) => {
                 <h3>Available: {prod.inventory}</h3>
                 {prod.description ? <h4>Description: {prod.description}</h4> : null}
                 <LocationForProduct locationId={prod.locationId}/>
+                <NavLink to='/productDetails'
+                state={{productId: prod.id, locationId: prod.locationId}}
+                >Details</NavLink>
                 
             </div>
         )
