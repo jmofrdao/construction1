@@ -18,7 +18,7 @@ const LocationForProduct = ({locationId}) => {
         return (
             <div key={`Product ${index}`}>
             <h3>Location: {prod.address}. {prod.city}, {prod.state} {prod.zip}</h3>
-            <h3>Phone #: {prod.phone}</h3>
+            {/* <h3>Phone #: {prod.phone}</h3> */}
             </div>
         )
     })

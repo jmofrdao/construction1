@@ -34,7 +34,7 @@ const ProductByLocation = () => {
     const theProductLocationMap = productLocation.map((element, index)=> {
         return (
             <div key={`Product By Location ${index}`}>
-                <h1>Name: {element.name}</h1>
+                <h1>{element.name}</h1>
                 <h3>Price: ${element.price}</h3>
                 <h3>Available: {element.inventory}</h3>
                 {element.description ? <h4>Description: {element.description}</h4> : null }

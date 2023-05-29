@@ -259,3 +259,14 @@ export async function getLocationBySellerId (sellerId) {
     console.log(result)
     return result
 }
+
+export async function getSellersWithoutUsername (sellerId) {
+    const response = await fetch(`${BASE_URL}/seller/${sellerId}/sellers`, {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+    const result = await response.json()
+    console.log(result)
+    return result
+}

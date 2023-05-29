@@ -21,10 +21,8 @@ const Product = ({product, setProduct, isLoggedIn}) => {
         productMap = productFilter.map((prod, index)=> {
             return (
                 <div key={`Product ${index}`}>
-                    <h1>Name: {prod.name}</h1>
+                    <h1>{prod.name}</h1>
                     <h3>Price: ${prod.price}</h3>
-                    <h3>Available: {prod.inventory}</h3>
-                    {prod.description ? <h4>Description: {prod.description}</h4> : null}
                     <LocationForProduct locationId={prod.locationId}/>
                     <NavLink to='/productDetails'
                     state={{productId: prod.id}}
@@ -37,10 +35,8 @@ const Product = ({product, setProduct, isLoggedIn}) => {
      productMap = product.map((prod, index)=> {
         return (
             <div key={`Product ${index}`}>
-                <h1>Name: {prod.name}</h1>
+                <h1>{prod.name}</h1>
                 <h3>Price: ${prod.price}</h3>
-                <h3>Available: {prod.inventory}</h3>
-                {prod.description ? <h4>Description: {prod.description}</h4> : null}
                 <LocationForProduct locationId={prod.locationId}/>
                 <NavLink to='/productDetails'
                 state={{productId: prod.id, locationId: prod.locationId}}

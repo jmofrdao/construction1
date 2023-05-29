@@ -105,5 +105,6 @@ module.exports = {
     getSeller, 
     getSellerByUsername,
     getSellerById,
-    getAllSellers
+    getAllSellers,
+    getSellerByIdWithoutUsername
 }

@@ -1,7 +1,8 @@
 
 import React, {useState, useEffect} from 'react'
 import { getAllSellers, getLocationBySellerId } from '../api'
-import {LocationForSeller, SearchLocation} from './index'
+import {LocationForSeller, SearchLocation, SellerForLocation} from './index'
+import { NavLink } from 'react-router-dom'
 
 
 const Sellers = () => {
@@ -28,9 +29,9 @@ const Sellers = () => {
         sellerMap = locationFilter.map((seller, index)=> {
             return (
                 <div key={`Seller ${index}`}>
-                    <h1>Company: {seller.company}</h1>
+                    <SellerForLocation sellerId={seller.id}/>
                     <LocationForSeller sellerId={seller.id} locationState={locationState} setLocationState={setLocationState}/>
-    
+                    
                 </div>
             )
         })
@@ -41,7 +42,7 @@ const Sellers = () => {
     sellerMap = sellerState.map((seller, index)=> {
         return (
             <div key={`Seller ${index}`}>
-                <h1>Company: {seller.company}</h1>
+                <h1>{seller.company}</h1>
                 <LocationForSeller sellerId={seller.id} locationState={locationState} setLocationState={setLocationState}/>
 
             </div>

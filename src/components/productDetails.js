@@ -26,7 +26,7 @@ const ProductDetails = () => {
     const theDetailMap = productDetails.map((detail, index)=> {
         return (
             <div key={`Detail ${index}`}>
-                <h1>Name: {detail.name}</h1>
+                <h1>{detail.name}</h1>
                 <h3>Price: ${detail.price}</h3>
                 <h3>Available: {detail.inventory}</h3>
                 <h3>Location: {detail.address}. {detail.city}, {detail.state} {detail.zip}</h3>
