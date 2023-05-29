@@ -67,9 +67,43 @@ async function getSellerById(sellerId) {
     }
   }
 
+  async function getSellerByIdWithoutUsername(sellerId) {
+    try {
+        const {
+          rows: [seller],
+        } = await client.query(`
+        SELECT id, company
+        FROM sellers
+        WHERE id =${sellerId};
+        `);
+        if (!seller) {
+          return null;
+        }
+    
+        return seller;
+      } catch (error) {
+        throw error;
+      }
+  }
+
+  async function getAllSellers () {
+    try {
+        const {rows: id} = await client.query(`
+        SELECT id
+        FROM sellers
+        `)
+
+        const sellers = await Promise.all(id.map((sell)=> getSellerByIdWithoutUsername(sell.id)))
+        return sellers
+    } catch (error) {
+        throw error
+    }
+}
+
 module.exports = {
     createSeller,
     getSeller, 
     getSellerByUsername,
-    getSellerById
+    getSellerById,
+    getAllSellers
 }

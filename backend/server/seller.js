@@ -2,8 +2,8 @@ const express = require('express')
 const router = express.Router()
 const jwt = require('jsonwebtoken')
 const {JWT_SECRET} = process.env
-const {getSeller, getSellerByUsername, createSeller} = require('../db/sellers')
-const {getLocationsBySeller} = require('../db/location')
+const {getSeller, getSellerByUsername, createSeller, getAllSellers} = require('../db/sellers')
+const {getLocationsBySeller, getLocationBySellerId} = require('../db/location')
 const {requireSeller} = require('./utils')
 router.post('/login', async (req,res,next)=> {
     const {username,password} = req.body.seller
@@ -87,6 +87,7 @@ router.post('/register', async (req, res, next)=> {
 
 router.get('/:username/locations', async (req,res,next) => {
     const {username} = req.params
+    console.log(username, 'name')
     try {
         const location = await getLocationsBySeller(username)
         if (username) {
@@ -110,5 +111,30 @@ router.get("/me", requireSeller, async (req, res, next) => {
       next(error);
     }
   });
+
+  router.get('/', async (req,res,next)=> {
+    const sellers = await getAllSellers()
+    res.send(sellers)
+}) 
+
+router.get('/:sellerId', async (req,res,next) => {
+    console.log(req.params)
+    const {sellerId} = req.params
+    console.log(sellerId, 'id')
+    try {
+        const locations = await getLocationBySellerId(sellerId)
+        console.log(locations, 'loc')
+        if (sellerId) {
+            res.send(locations)
+        } else {
+            next({
+                name:'ErrorLocation',
+                message: 'Error Getting Location'
+            })
+        }
+    } catch ({name, message}) {
+        next({name, message})
+    }
+})
 
 module.exports = router

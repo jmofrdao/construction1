@@ -28,6 +28,21 @@ async function getLocationsBySeller (username) {
     }
 }
 
+async function getLocationBySellerId (sellerId) {
+    try {
+        const {rows: location} = await client.query(`
+        SELECT location.*
+        FROM location
+        JOIN sellers ON location."sellerId" = sellers.id
+        WHERE sellers.id=${sellerId}
+        `)
+        
+        return location
+    } catch (error) {
+        throw error
+    }
+}
+
 async function destroyLocation (id) {
     try {
         const {rows: [location]} = await client.query(`
@@ -61,5 +76,6 @@ module.exports = {
     createLocation,
     getLocationsBySeller,
     destroyLocation,
-    getLocationById
+    getLocationById,
+    getLocationBySellerId
 }

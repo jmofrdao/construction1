@@ -17,10 +17,12 @@ const Navbar = ({setIsLoggedIn, isLoggedIn, isSeller, setIsSeller}) => {
                   ) : !isSeller && isLoggedIn ? (
                       <div>
                           <NavLink to='/logout'>Logout</NavLink>
+                          <NavLink to='/sellers'>Locations</NavLink>
                       </div>
                   ) : (
                       <div>
                           <NavLink to='/login'>Login/Register</NavLink>
+                          <NavLink to='/sellers'>Locations</NavLink>
                       </div>
                   )}
               </div>

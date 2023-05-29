@@ -45,6 +45,7 @@ if (location && location.sellerId === req.seller.id) {
 
 router.get('/:locationId/product', async (req,res,next) => {
     const {locationId} = req.params
+    console.log(locationId, 'loc')
     try {
         const product = await getProductByLocation(locationId)
         if (locationId) {

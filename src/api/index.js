@@ -234,3 +234,28 @@ export const getProductsById = async (productId) => {
       throw error;
     }
   };
+
+  export const getAllSellers = async () => {
+    try {
+        const response = await fetch(`${BASE_URL}/seller`, {
+            headers: {
+                'Content-Type': 'applpication/json',
+            },
+        })
+        const result = await response.json()
+        return result
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export async function getLocationBySellerId (sellerId) {
+    const response = await fetch(`${BASE_URL}/seller/${sellerId}`, {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+    const result = await response.json()
+    console.log(result)
+    return result
+}
