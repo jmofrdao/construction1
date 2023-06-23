@@ -75,5 +75,8 @@ router.use('/locations', locationRouter)
 const cartRouter = require('./cart')
 router.use('/cart', cartRouter)
 
+const cartItemRouter = require('./cartItem')
+router.use('/cartItem', cartItemRouter)
+
 
 module.exports = router
