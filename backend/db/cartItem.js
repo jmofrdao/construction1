@@ -4,7 +4,7 @@ async function addProductCart ({productId, cartId, quantity, price}) {
     try {const {rows: [order]} = await client.query(`
     INSERT into cartItem ("productId", "cartId", quantity, price)
     VALUES ($1, $2, $3, $4)
-    RETURNONG *;
+    RETURNING *;
     `, [productId, cartId, quantity, price])
 
     return order

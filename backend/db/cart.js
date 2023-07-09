@@ -75,9 +75,23 @@ async function fetchTheOrderHistoryById (userId) {
     }
 }
 
+async function fetchCart () {
+    try {
+        const {rows: cart} = await client.query(`
+        SELECT *
+        FROM cart
+        `);
+
+        return cart
+    } catch (error) {
+        throw error
+    }
+}
+
 module.exports = {
     createCart,
     fetchCartById,
     checkoutCart,
-    fetchTheOrderHistoryById
+    fetchTheOrderHistoryById,
+    fetchCart
 }

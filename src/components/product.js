@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import { NavLink } from "react-router-dom"
 import { getAllProducts } from "../api"
-import {Search, LocationForProduct, ProductDetails} from './index'
+import {Search, LocationForProduct, ProductDetails, Add2cart} from './index'
 
-const Product = ({product, setProduct, isLoggedIn}) => {
+const Product = ({product, setProduct, isLoggedIn, cart, setCart, guestCart, setGuestCart}) => {
     const [productFilter, setProductFilter] = useState([])
 
     async function fetchProducts () {
@@ -27,6 +27,7 @@ const Product = ({product, setProduct, isLoggedIn}) => {
                     <NavLink to='/productDetails'
                     state={{productId: prod.id}}
                     >Details</NavLink>
+                    <Add2cart product={product} setProduct={setProduct} productId={prod.id} productPrice={prod.price} guestCart={guestCart} setGuestCart={setGuestCart} isLoggedIn={isLoggedIn}/>
                     
                 </div>
             )
@@ -41,6 +42,7 @@ const Product = ({product, setProduct, isLoggedIn}) => {
                 <NavLink to='/productDetails'
                 state={{productId: prod.id, locationId: prod.locationId}}
                 >Details</NavLink>
+                <Add2cart product={product} setProduct={setProduct} productId={prod.id} productPrice={prod.price} guestCart={guestCart} setGuestCart={setGuestCart} isLoggedIn={isLoggedIn}/>
                 
             </div>
         )

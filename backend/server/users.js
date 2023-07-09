@@ -3,6 +3,7 @@ const router = express.Router()
 const jwt = require('jsonwebtoken')
 const {JWT_SECRET} = process.env
 const {getUser, getUserByUsername, createUser} = require('../db/users')
+const {requireUser} = require('./utils')
 
 
 router.post('/login', async (req,res,next)=> {
@@ -86,5 +87,13 @@ router.post('/register', async (req,res,next)=> {
         next(error)
     }
 })
+
+router.get("/me", requireUser, async (req, res, next) => {
+    try {
+      res.send(req.user);
+    } catch (error) {
+      next(error);
+    }
+  });
 
 module.exports = router

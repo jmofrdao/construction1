@@ -270,3 +270,46 @@ export async function getSellersWithoutUsername (sellerId) {
     console.log(result)
     return result
 }
+
+ export async function getUsersMe (token) {
+    const response = await fetch(`${BASE_URL}/users/me`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const result = await response.json();
+      return result;
+}
+
+export const getAllCartsByUserId = async (token, userId) => {
+    try {
+      const response = await fetch(`${BASE_URL}/cart/${userId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      throw (error);
+    }
+  };
+
+  export async function addProductsToCart(productId, cartId, quantity, price) {
+    const response = await fetch(`${BASE_URL}/cartItem/${cartId}/${productId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({
+        productId: productId,
+        quantity,
+        price,
+      }),
+    });
+    const result = await response.json();
+    return result;
+  }

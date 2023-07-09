@@ -1,13 +1,15 @@
 const express = require('express')
-const router = express.router()
+const router = express.Router()
 const {addProductCart, fetchcartItemById, editItemQuantity, deleteCartItem, fetchCartItemByUserId} = require('../db/cartItem')
 const {requireUser} = require('./utils')
 
 router.post('/:cartId/:productId', async (req,res) => {
     const {cartId, productId} = req.params
     const {quantity, price} = req.body
+    console.log(price, 'price')
     try {
-        const cartItem = await addProductCart(cartId, productId, quantity, price)
+        const cartItem = await addProductCart ({productId, cartId, quantity, price})
+        console.log(cartItem, 'ietm')
         res.send({cartItem})
     } catch (error) {
         res.send({

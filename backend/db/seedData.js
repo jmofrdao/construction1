@@ -1,9 +1,10 @@
 const client = require('./client')
-const {createUser} = require('./users')
+const {createUser, getUserByUsername} = require('./users')
 const {createSeller} = require('./sellers')
-const {createProduct} = require('./product')
+const {createProduct, getAllProducts } = require('./product')
 const {createLocation} = require('./location')
-const {createCart} = require('./cart')
+const {createCart, fetchCart} = require('./cart')
+const {addProductCart} = require('./cartItem')
 
 async function dropTables () {
     try {
@@ -161,6 +162,37 @@ async function createInitialCart () {
     }
 }
 
+async function createInitialCartItem () {
+    const buyerUser = await getUserByUsername(`keeton`)
+    const [order1, order2, order3] = await fetchCart()
+    const [product1, product2, product3] = await getAllProducts()
+
+    const cartItemstoMake = [
+        {
+            productId: product1.id,
+            cartId: order1.id,
+            quantity: 1,
+            price: 20
+        },
+        {
+            productId: product2.id,
+            cartId: order2.id,
+            quantity: 5,
+            price: 50
+        },
+        {
+            productId: product3.id,
+            cartId: order3.id,
+            quantity: 7,
+            price: 260
+        }
+    ]
+
+    const cartItem = await Promise.all(cartItemstoMake.map(addProductCart))
+
+    console.log(cartItem, 'item')
+}
+
 async function rebuildDB() {
     try {
         await dropTables();
@@ -169,7 +201,8 @@ async function rebuildDB() {
         await createInitialSeller();
         await createInitialLocation();
         await createInitialProduct();
-        await createInitialCart()
+        await createInitialCart();
+        await createInitialCartItem()
     } catch (error) {
         throw error
     }

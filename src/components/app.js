@@ -6,6 +6,8 @@ const App = () => {
     const [product, setProduct] = useState([])
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [isSeller, setIsSeller] = useState(false)
+    const [cart, setCart] = useState([])
+    const [guestCart, setGuestCart] = useState([])
 
     useEffect(()=> {
         const token = localStorage.getItem("token")
@@ -26,7 +28,7 @@ const App = () => {
             {isLoggedIn && isSeller ? (
                 <Routes>
             <Route exact path='/'
-                element={<Product isLoggedIn={isLoggedIn} product={product} setProduct={setProduct}/>}/>
+                element={<Product isLoggedIn={isLoggedIn} product={product} setProduct={setProduct} cart={cart} setCart={setCart} guestCart={guestCart} setGuestCart={setGuestCart}/>}/>
                 <Route path='locations'
                 element={<Locations product={product} setProduct={setProduct}/>}/> 
                 <Route path='/createProduct'
@@ -49,7 +51,7 @@ const App = () => {
                         <Route path='logout'
                 element={<Logout setIsLoggedIn={setIsLoggedIn} setIsSeller={setIsSeller}/>}/>
                     <Route exact path='/'
-                element={<Product isLoggedIn={isLoggedIn} product={product} setProduct={setProduct}/>}/>
+                element={<Product isLoggedIn={isLoggedIn} product={product} setProduct={setProduct} cart={cart} setCart={setCart} guestCart={guestCart} setGuestCart={setGuestCart}/>}/>
                 <Route path='sellers'
                 element={<Sellers/>}/>
                 <Route path='productDetails'
@@ -67,7 +69,7 @@ const App = () => {
                 <Route path='sellerRegister'
                 element={<SellerRegister/>}/>
                 <Route exact path='/'
-                element={<Product isLoggedIn={isLoggedIn} product={product} setProduct={setProduct}/>}/>
+                element={<Product isLoggedIn={isLoggedIn} product={product} setProduct={setProduct} cart={cart} setCart={setCart} guestCart={guestCart} setGuestCart={setGuestCart}/>}/>
                 <Route path='productDetails'
                 element={<ProductDetails/>}/>
                  <Route path='sellers'
