@@ -313,3 +313,30 @@ export const getAllCartsByUserId = async (token, userId) => {
     const result = await response.json();
     return result;
   }
+
+  export const getCartItemsbyUserId = async (userId) => {
+    try {
+      const response = await fetch(`${BASE_URL}/cartItem/${userId}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const result = await response.json();
+  
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  export const removeCartItem = async (cartItemId, token) => {
+    const response = await fetch(`${BASE_URL}/cartItem/${cartItemId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const result = await response.json();
+    return result;
+  };
