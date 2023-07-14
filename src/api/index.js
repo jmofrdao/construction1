@@ -340,3 +340,23 @@ export const getAllCartsByUserId = async (token, userId) => {
     const result = await response.json();
     return result;
   };
+
+  export const editCartItemsbyId = async (token, cartItemId, quantity) => {
+    try {
+      const response = await fetch(`${BASE_URL}/cartItem/${cartItemId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          quantity,
+        }),
+      });
+  
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  };

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {Routes, Route} from 'react-router-dom'
-import {Login, Product, Navbar, Register, SellerLogin, SellerRegister, Logout, Locations, CreateLocation, ProductByLocation, CreateProduct, ProductDetails, Sellers, ProductForLocation, Cart} from './index'
+import {Login, Product, Navbar, Register, SellerLogin, SellerRegister, Logout, Locations, CreateLocation, ProductByLocation, CreateProduct, ProductDetails, Sellers, ProductForLocation, Cart, PublicCart} from './index'
 
 const App = () => {
     const [product, setProduct] = useState([])
@@ -17,7 +17,10 @@ const App = () => {
         if (localStorage.getItem('seller')) {
             setIsSeller(true)
         }
-    }, [])
+        if (!isLoggedIn) {
+            localStorage.setItem('cart', JSON.stringify(guestCart))
+        }
+    }, [guestCart])
   
 
     return (
@@ -80,6 +83,8 @@ const App = () => {
                 element={<Sellers/>}/>
                 <Route path='productForLocation'
                 element={<ProductForLocation/>}/>
+                <Route path='publicCart'
+                element={<PublicCart isLoggedIn={isLoggedIn} guestCart={guestCart} setGuestCart={setGuestCart}/>}/>
                 
                     </Routes>
                 )}

@@ -25,7 +25,7 @@ const Navbar = ({setIsLoggedIn, isLoggedIn, isSeller, setIsSeller}) => {
                       <div>
                           <NavLink to='/login'>Login/Register</NavLink>
                           <NavLink to='/sellers'>Locations</NavLink>
-                          <NavLink to='/cart'>Cart</NavLink>
+                          <NavLink to='/publicCart'>Cart</NavLink>
                       </div>
                   )}
               </div>

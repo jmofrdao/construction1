@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { getUsersMe, getAllCartsByUserId, getCartItemsbyUserId} from '../api'
-import {ProductById, DeleteCartItem} from './index'
+import {ProductById, DeleteCartItem, UpdateCartItem, Sum} from './index'
 
 const Cart = ({isLoggedIn}) => {
     const [cartItems, setCartItems] = useState([])
@@ -34,6 +34,9 @@ const Cart = ({isLoggedIn}) => {
                 <div>
                     ${cartItem.price}
                 </div>
+                <div>
+                    <UpdateCartItem cartItemId={cartItem.id} setCartItems={setCartItems} cartItems={cartItems}/>
+                </div>
                 <DeleteCartItem cartItemId={cartItem.id} setCartItems={setCartItems} cartItems={cartItems}/>
             </div>
         )
@@ -41,6 +44,9 @@ const Cart = ({isLoggedIn}) => {
 
     return (
         <div>
+            <div>
+                <Sum cartItems={cartItems}/>
+            </div>
             {item}
         </div>
     )
